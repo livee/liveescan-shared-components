@@ -6,6 +6,8 @@ A set of shared components for both liveescan and liveescan-pro.
 
 ### Searchbar
 
+Props list:
+
 | Name          | Description                                                    | Type   | Mandatory | Default Value |
 | ------------- | -------------------------------------------------------------- | ------ | --------- | ------------- |
 | searchText    | The placeholder for the input                                  | string | yes       | x             |
