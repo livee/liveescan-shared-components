@@ -58,6 +58,13 @@ Props list:
 ];
 ```
 
+### Header:
+
+| Name            | Description                            | Type   | Mandatory | Default Value |
+| --------------- | -------------------------------------- | ------ | --------- | ------------- |
+| backgroundColor | The background color of the header bar | RGB    | yes       |               |
+| title           | The header's title                     | string | yes       |               |
+
 ### Add new one:
 
 | Name | Description | Type | Mandatory | Default Value |
