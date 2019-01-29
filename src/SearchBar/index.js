@@ -2,124 +2,111 @@ import React, { Component } from 'react';
 import { View, TouchableHighlight, TextInput, StyleSheet, Text, Keyboard } from 'react-native';
 import Animated, { Easing } from 'react-native-reanimated';
 import { default as Ionicons } from 'react-native-vector-icons/Ionicons';
-
-const {
-  set,
-  cond,
-  concat,
-  startClock,
-  stopClock,
-  clockRunning,
-  block,
-  timing,
-  interpolate,
-  debug,
-  Value,
-  Clock
-} = Animated;
-
-const inputRange = [70, 90];
-function runTiming(clock, value, dest) {
-  const state = {
-    finished: new Value(0),
-    position: value,
-    time: new Value(0),
-    frameTime: new Value(0)
-  };
-
-  const config = {
-    duration: 250,
-    toValue: dest,
-    easing: Easing.inOut(Easing.ease)
-  };
-
-  return block([
-    cond(clockRunning(clock), 0, [
-      // If the clock isn't running we reset all the animation params and start the clock
-      set(state.finished, 0),
-      set(state.time, 0),
-      set(state.position, value),
-      set(state.frameTime, 0),
-      set(config.toValue, dest),
-      startClock(clock)
-    ]),
-    // we run the step here that is going to update position
-    timing(clock, state, config),
-    // if the animation is over we stop the clock
-    cond(state.finished, stopClock(clock)),
-    // we made the block return the updated position
-    state.position
-  ]);
-}
-
+import Utils from '../utils';
+const { concat, Value, interpolate } = Animated;
+const { Animate } = Utils;
 export default class SearchBar extends Component {
   state = {
-    showCancelButton: false,
-    searchWidth: new Animated.Value(90)
+    showCancelButton: false
   };
+  /* 100 = hide, 0 = show */
+  searchBarAnimation = new Value(100);
+  searchBarFrames = Animate.createAnimation(100, this.searchBarAnimation);
 
-  searchClock = new Clock();
-  searchProgress = new Value(90);
-  searchBarAnimation = new Value(90);
-  searchBarFrames = runTiming(this.searchClock, this.searchProgress, this.searchBarAnimation);
+  /* 100 = hide, 0 = show */
+  clearBarAnimation = new Value(100);
+  clearBarFrames = Animate.createAnimation(100, this.clearBarAnimation, 100);
+
   opacity = interpolate(this.searchBarFrames, {
-    inputRange: inputRange,
+    inputRange: [0, 100],
     outputRange: [1, 0]
   });
 
-  clearWidth = interpolate(this.searchBarFrames, {
-    inputRange: inputRange,
+  searchWidth = interpolate(this.searchBarFrames, {
+    inputRange: [0, 100],
+    outputRange: [70, 90]
+  });
+
+  clearOpacity = interpolate(this.clearBarFrames, {
+    inputRange: [0, 100],
+    outputRange: [1, 0]
+  });
+
+  clearWidth = interpolate(this.clearBarFrames, {
+    inputRange: [0, 100],
     outputRange: [20, 15]
   });
 
-  inputWidth = interpolate(this.searchBarFrames, {
-    inputRange: inputRange,
+  clearScale = interpolate(this.clearBarFrames, {
+    inputRange: [0, 100],
+    outputRange: [1, 0]
+  });
+
+  inputWidth = interpolate(this.clearBarFrames, {
+    inputRange: [0, 100],
     outputRange: [80, 100]
   });
 
   constructor(props) {
     super(props);
+    /* hide the cancel button when keyboard is dismissed */
+    Keyboard.addListener('keyboardDidHide', () => this.hideCancelButton());
   }
 
   onCancelSearch() {
-    this.props.onChangeText('');
-    this.searchBarAnimation.setValue(90);
-    this.setState({ showCancelButton: false });
+    this.onChangeText('');
+    this.hideCancelButton();
     Keyboard.dismiss();
   }
 
+  hideCancelButton() {
+    this.searchBarAnimation.setValue(100);
+    this.setState({ showCancelButton: false });
+  }
   onSearchTouch() {
-    this.searchBarAnimation.setValue(70);
+    this.searchBarAnimation.setValue(0);
     this.setState({ showCancelButton: true });
+    this.showHideClearButton(this.props.searchPattern);
   }
 
+  showHideClearButton(text) {
+    if (text === '') {
+      this.clearBarAnimation.setValue(100);
+    } else {
+      this.clearBarAnimation.setValue(0);
+    }
+  }
   onChangeText(text) {
     this.props.onChangeText(text);
     if (text !== '' && this.state.showCancelButton === false) {
       this.setState({ showCancelButton: true });
     }
+    this.showHideClearButton(text);
   }
 
   render() {
     const { t } = this.props;
     const progressStyle = {
-      width: concat(this.searchBarFrames, '%')
+      width: concat(this.searchWidth, '%')
     };
     const cancelStyle = {
       opacity: this.opacity,
       visibility: this.state.showCancelButton ? 'visible' : 'collapse'
     };
 
+    const showClearButton = this.state.showCancelButton && this.props.searchPattern !== '';
+
     const clearWidth = {
-      ...cancelStyle,
-      width: concat(this.clearWidth, '%'),
-      opacity: this.opacity
+      opacity: this.clearOpacity,
+      visibility: showClearButton ? 'visible' : 'collapse',
+      transform: [{ scale: this.clearScale }],
+      width: concat(this.clearWidth, '%')
     };
 
     const inputCalculatedStyle = {
       ...styles.searchInput,
       width: concat(this.inputWidth, '%'),
-      borderRightWidth: this.state.showCancelButton ? 1 : 0
+      borderRightWidth: this.clearOpacity
     };
 
     return (
