@@ -122,7 +122,7 @@ export default class SearchBar extends Component {
           </Animated.View>
           <Animated.View style={[styles.clearSearch, clearWidth]}>
             <TouchableHighlight
-              underlayColor={'rgba(0,0,0,0.1)'}
+              underlayColor={'rgba(0,0,0,0)'}
               style={styles.clearSearchHighlight}
               onPress={() => this.onChangeText('')}
             >
@@ -132,7 +132,7 @@ export default class SearchBar extends Component {
         </Animated.View>
         <Animated.View style={[{}, cancelStyle]}>
           <TouchableHighlight
-            underlayColor={'rgba(0,0,0,0.1)'}
+            underlayColor={'rgba(0,0,0,0)'}
             style={styles.cancelSearch}
             onPress={() => this.onCancelSearch()}
           >
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
   searchInput: {
     padding: 10,
     width: '80%',
+    height: 50,
     borderColor: '#9e9e9e',
     borderRightWidth: 1
   },
@@ -174,19 +175,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width: '15%',
+    flex: 1,
+    height: 50,
     borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-    padding: 14
+    borderBottomRightRadius: 15
   },
   clearSearchHighlight: {
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    height: 50,
+    flexDirection: 'row',
+    flex: 1
   },
+
   cancelSearch: {
     marginLeft: '5%',
     marginTop: 20,
     opacity: 1,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center'
   }
