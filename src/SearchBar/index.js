@@ -50,7 +50,11 @@ export default class SearchBar extends Component {
   constructor(props) {
     super(props);
     /* hide the cancel button when keyboard is dismissed */
-    Keyboard.addListener('keyboardDidHide', () => this.hideCancelButton());
+    this.keyboardEvent = Keyboard.addListener('keyboardDidHide', () => this.hideCancelButton());
+  }
+
+  componentWillUnmount() {
+    this.keyboardEvent.remove();
   }
 
   onCancelSearch() {
