@@ -3,4 +3,8 @@ import SettingsList from './SettingsList';
 import OpenSourceList from './OpenSourceList';
 import Header from './Header';
 import Utils from './utils';
-export { SearchBar, SettingsList, OpenSourceList, Header, Utils };
+import Triangle from './Triangle';
+import Notification from './Notification';
+import Icon from './Icon';
+
+export { SearchBar, SettingsList, OpenSourceList, Header, Utils, Triangle, Notification, Icon };
