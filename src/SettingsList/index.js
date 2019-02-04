@@ -18,7 +18,7 @@ export default class SettingsList extends Component {
               key={item.id}
               title={item.label}
               subtitle={item.desc}
-              leftIcon={{ name: item.icon }}
+              leftIcon={typeof item.icon === 'string' ? { name: item.icon } : item.icon}
               onPress={() => this.props.onPress(item)}
             />
           )}
