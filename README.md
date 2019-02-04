@@ -34,7 +34,7 @@ Props list:
       {
         label: `Déconnexion`,
         desc: `Déconnectez-vous`,
-        icon: 'exit-to-app'
+        icon: 'exit-to-app' // or a react-native component
       }
     ]
   }
@@ -64,6 +64,25 @@ Props list:
 | --------------- | -------------------------------------- | ------ | --------- | ------------- |
 | backgroundColor | The background color of the header bar | RGB    | yes       |               |
 | title           | The header's title                     | string | yes       |               |
+
+### Icon:
+
+| Name      | Description                                       | Type   | Mandatory | Default Value |
+| --------- | ------------------------------------------------- | ------ | --------- | ------------- |
+| code      | The font code of the icon                         | string | yes       | x             |
+| iconStyle | React-native StyleSheet object to custom the icon | Object | no        | {}            |
+|           |                                                   |        |           |               |
+
+### Notification:
+
+| Name           | Description                                                | Type     | Mandatory | Default Value   |
+| -------------- | ---------------------------------------------------------- | -------- | --------- | --------------- |
+| position       | The position of the notification (top / bottom)            | string   | yes       | x               |
+| duration       | The time to show the notification                          | int      | yes       | 4000            |
+| type           | The type of notification (success / error / warning)       | string   | yes       | x               |
+| onDismissClick | event fired when the notification must be closed           | callback | no        | N/A             |
+| colors         | An object with the following keys: success, error, warning | object   | no        | See source code |
+| icons          | An object with the following keys: success, error, warning | object   | no        | See source code |
 
 ### Add new one:
 

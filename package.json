@@ -1,6 +1,6 @@
 {
   "name": "liveescan-shared-components",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Shared components for both liveescan and liveescan-pro",
   "main": "src/index.js",
   "repository": "git@github.com:livee/liveescan-shared-components.git",
