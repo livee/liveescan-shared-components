@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableHighlight, TextInput, StyleSheet, Text, Keyboard } from 'react-native';
-import Animated, { Easing } from 'react-native-reanimated';
-import { default as Ionicons } from 'react-native-vector-icons/Ionicons';
+import Animated from 'react-native-reanimated';
+import Icon from '../Icon';
 import Utils from '../utils';
 const { concat, Value, interpolate } = Animated;
 const { Animate } = Utils;
@@ -130,7 +130,7 @@ export default class SearchBar extends Component {
               style={styles.clearSearchHighlight}
               onPress={() => this.onChangeText('')}
             >
-              <Ionicons name="md-close" size={20} color="#212121" />
+              <Icon code={'\u{e9b9}'} iconStyle={{ color: '#212121', fontSize: 20 }} />
             </TouchableHighlight>
           </Animated.View>
         </Animated.View>
