@@ -118,6 +118,7 @@ export default class SearchBar extends Component {
         <Animated.View style={[styles.inputBorder, progressStyle]}>
           <Animated.View style={inputCalculatedStyle}>
             <TextInput
+              style={{ height: 30 }}
               value={this.props.searchPattern}
               onFocus={() => this.onSearchTouch()}
               onChangeText={text => this.onChangeText(text)}
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     marginLeft: '2.5%',
     alignItems: 'center',
     flexDirection: 'row',
-    borderColor: '#9e9e9e',
+    borderColor: '#dedede',
     width: '95%',
     borderRadius: 15,
     borderWidth: 1
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '80%',
     height: 50,
-    borderColor: '#9e9e9e',
+    borderColor: '#dedede',
     borderRightWidth: 1
   },
   clearSearch: {

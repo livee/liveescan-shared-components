@@ -15,6 +15,7 @@ export default class SettingsList extends Component {
           )}
           renderItem={({ item }) => (
             <ListItem
+              containerStyle={{ borderBottomWidth: 0 }}
               key={item.id}
               title={item.label}
               subtitle={item.desc}
@@ -31,18 +32,18 @@ export default class SettingsList extends Component {
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0, 0, 0, 0.12)',
+    borderWidth: 0,
     backgroundColor: '#efefef'
   },
   sectionTitle: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 12,
     textTransform: 'uppercase',
     marginBottom: 8,
-    marginLeft: 16,
+    marginLeft: 10,
     marginRight: 16,
     marginTop: 24,
-    opacity: 0.8
+    opacity: 0.8,
+    fontWeight: 'bold'
   }
 });
