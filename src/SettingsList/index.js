@@ -15,7 +15,7 @@ export default class SettingsList extends Component {
           )}
           renderItem={({ item }) => (
             <ListItem
-              containerStyle={{ borderBottomWidth: 0 }}
+              containerStyle={{ borderBottomColor: '#efefef' }}
               key={item.id}
               title={item.label}
               subtitle={item.desc}
