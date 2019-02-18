@@ -80,6 +80,7 @@ Props list:
 | position       | The position of the notification (top / bottom)            | string   | yes       | x               |
 | duration       | The time to show the notification                          | int      | yes       | 4000            |
 | type           | The type of notification (success / error / warning)       | string   | yes       | x               |
+| translate      | The react-i18next object to get translations               | object   | yes       | x               |
 | onDismissClick | event fired when the notification must be closed           | callback | no        | N/A             |
 | colors         | An object with the following keys: success, error, warning | object   | no        | See source code |
 | icons          | An object with the following keys: success, error, warning | object   | no        | See source code |

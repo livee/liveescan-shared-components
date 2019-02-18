@@ -49,7 +49,7 @@ class Notification extends Component {
   }
 
   render() {
-    const { position, text, type } = this.props;
+    const { position, text, type, translate } = this.props;
     const { fadeAnim } = this.state;
 
     const colors = { ...defaultColors, ...this.props.colors };
@@ -65,7 +65,7 @@ class Notification extends Component {
           <View style={[styles.content]}>
             <View style={[styles.leftBar, { backgroundColor: colors[type] }]} />
             <Icon code={icons[type]} iconStyle={[styles.icon, { color: colors[type] }]} />
-            <Text style={[styles.text, { color: colors[type] }]}>{text}</Text>
+            <Text style={[styles.text, { color: colors[type] }]}>{translate(text)}</Text>
           </View>
           {position === 'bottom' && <Triangle style={styles.triangleDown} />}
         </TouchableOpacity>
