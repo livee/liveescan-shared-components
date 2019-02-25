@@ -65,7 +65,9 @@ class Notification extends Component {
           <View style={[styles.content]}>
             <View style={[styles.leftBar, { backgroundColor: colors[type] }]} />
             <Icon code={icons[type]} iconStyle={[styles.icon, { color: colors[type] }]} />
-            <Text style={[styles.text, { color: colors[type] }]}>{translate(text)}</Text>
+            <Text style={[styles.text, { color: colors[type] }]}>
+              {typeof text === 'string' ? translate(text) : text}
+            </Text>
           </View>
           {position === 'bottom' && <Triangle style={styles.triangleDown} />}
         </TouchableOpacity>
