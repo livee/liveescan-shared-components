@@ -40,12 +40,7 @@ class Notification extends Component {
   }
 
   destroyNotifcation() {
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 0,
-      duration: 500
-    }).start(() => {
-      this.props.onDismissClick();
-    });
+    this.props.onDismissClick();
   }
 
   render() {
@@ -117,10 +112,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 5
   },
   text: {
+    flex: 1,
     color: 'black',
     fontWeight: 'bold',
     fontSize: 14,
-    margin: 10
+    margin: 10,
+    flexWrap: 'wrap'
   },
   icon: {
     marginLeft: 10,
