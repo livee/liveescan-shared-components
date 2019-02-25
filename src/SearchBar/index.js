@@ -169,9 +169,10 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   searchInput: {
-    padding: 10,
+    padding: 5,
+    paddingLeft: 10,
     width: '80%',
-    height: 50,
+    height: 40,
     borderColor: '#dedede',
     borderRightWidth: 1
   },
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '15%',
     flex: 1,
-    height: 50,
+    height: 40,
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15
   },
