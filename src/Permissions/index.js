@@ -42,8 +42,6 @@ export default class PermissionsComponent extends Component {
     return Platform.select({
       ios: (
         <View>
-          <Text style={styles.iosTitle}>{text.title}</Text>
-          <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View style={styles.steps}>
             {text.steps.map(step => (
               <View style={{ flexDirection: 'row', marginVertical: 20 }} key={step.label}>
@@ -56,8 +54,6 @@ export default class PermissionsComponent extends Component {
       ),
       android: (
         <View>
-          <Text style={styles.iosTitle}>{text.title}</Text>
-          <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -98,6 +94,8 @@ export default class PermissionsComponent extends Component {
     return (
       <View>
         <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
+        <Text style={styles.iosTitle}>{text.title}</Text>
+        <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
         {this.platformRendering(text)}
       </View>
     );
