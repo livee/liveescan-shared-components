@@ -6,5 +6,16 @@ import Utils from './utils';
 import Triangle from './Triangle';
 import Notification from './Notification';
 import Icon from './Icon';
+import Permissions from './Permissions';
 
-export { SearchBar, SettingsList, OpenSourceList, Header, Utils, Triangle, Notification, Icon };
+export {
+  SearchBar,
+  SettingsList,
+  OpenSourceList,
+  Header,
+  Utils,
+  Triangle,
+  Notification,
+  Icon,
+  Permissions
+};
