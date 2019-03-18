@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Permissions extends Component {
+export default class PermissionsComponent extends Component {
   constructor() {
     super();
   }
@@ -43,22 +43,22 @@ export default class Permissions extends Component {
     return Platform.select({
       ios: (
         <View>
-          <HeaderComponent title={text.headerTitle} />
+          <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
           <Text style={styles.iosTitle}>{text.title}</Text>
           <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View style={styles.steps}>
-            {text.steps.map(step => {
-              <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-                <Image source={require(`${step.img}`)} style={{ width: 50, height: 50 }} />
+            {this.props.text.steps.map(step => (
+              <View style={{ flexDirection: 'row', marginVertical: 20 }} key={step.label}>
+                <Image source={step.img} style={{ width: 50, height: 50 }} />
                 <Text style={styles.step}>{step.label}</Text>
-              </View>;
-            })}
+              </View>
+            ))}
           </View>
         </View>
       ),
       android: (
         <View>
-          <HeaderComponent title={text.headerTitle} />
+          <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
           <Text style={styles.iosTitle}>{text.title}</Text>
           <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View
