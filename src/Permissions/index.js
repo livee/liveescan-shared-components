@@ -47,18 +47,12 @@ export default class Permissions extends Component {
           <Text style={styles.iosTitle}>{text.title}</Text>
           <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View style={styles.steps}>
-            <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-              <Image source={require(`${text.img1}`)} style={{ width: 50, height: 50 }} />
-              <Text style={styles.step}>{text.step1}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-              <Image source={require(`${text.img2}`)} style={{ width: 50, height: 50 }} />
-              <Text style={styles.step}>{text.step2}</Text>
-            </View>
-            <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-              <Image source={require(`${text.img3}`)} style={{ width: 50, height: 50 }} />
-              <Text style={styles.step}>{text.step3}</Text>
-            </View>
+            {text.steps.map(step => {
+              <View style={{ flexDirection: 'row', marginVertical: 20 }}>
+                <Image source={require(`${step.img}`)} style={{ width: 50, height: 50 }} />
+                <Text style={styles.step}>{step.label}</Text>
+              </View>;
+            })}
           </View>
         </View>
       ),
