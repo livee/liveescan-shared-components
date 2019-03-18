@@ -38,16 +38,14 @@ export default class PermissionsComponent extends Component {
     super();
   }
 
-  render() {
-    const { text } = this.props;
+  platformRendering(text) {
     return Platform.select({
       ios: (
         <View>
-          <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
           <Text style={styles.iosTitle}>{text.title}</Text>
           <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View style={styles.steps}>
-            {this.props.text.steps.map(step => (
+            {text.steps.map(step => (
               <View style={{ flexDirection: 'row', marginVertical: 20 }} key={step.label}>
                 <Image source={step.img} style={{ width: 50, height: 50 }} />
                 <Text style={styles.step}>{step.label}</Text>
@@ -58,7 +56,6 @@ export default class PermissionsComponent extends Component {
       ),
       android: (
         <View>
-          <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
           <Text style={styles.iosTitle}>{text.title}</Text>
           <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View
@@ -94,5 +91,15 @@ export default class PermissionsComponent extends Component {
         </View>
       )
     });
+  }
+
+  render() {
+    const { text } = this.props;
+    return (
+      <View>
+        <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
+        {this.platformRendering(text)}
+      </View>
+    );
   }
 }
