@@ -6,7 +6,7 @@ import Utils from './utils';
 import Triangle from './Triangle';
 import Notification from './Notification';
 import Icon from './Icon';
-import Permissions from './Permissions';
+import PermissionsComponent from './Permissions';
 
 export {
   SearchBar,
@@ -17,5 +17,5 @@ export {
   Triangle,
   Notification,
   Icon,
-  Permissions
+  PermissionsComponent
 };

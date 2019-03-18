@@ -33,34 +33,27 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class Permissions extends Component {
+export default class PermissionsComponent extends Component {
   constructor() {
     super();
   }
 
-  render() {
-    const { text } = this.props;
+  platformRendering(text) {
     return Platform.select({
       ios: (
         <View>
-          <HeaderComponent title={text.headerTitle} />
-          <Text style={styles.iosTitle}>{text.title}</Text>
-          <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View style={styles.steps}>
-            {text.steps.map(step => {
-              <View style={{ flexDirection: 'row', marginVertical: 20 }}>
-                <Image source={require(`${step.img}`)} style={{ width: 50, height: 50 }} />
+            {text.steps.map(step => (
+              <View style={{ flexDirection: 'row', marginVertical: 20 }} key={step.label}>
+                <Image source={step.img} style={{ width: 50, height: 50 }} />
                 <Text style={styles.step}>{step.label}</Text>
-              </View>;
-            })}
+              </View>
+            ))}
           </View>
         </View>
       ),
       android: (
         <View>
-          <HeaderComponent title={text.headerTitle} />
-          <Text style={styles.iosTitle}>{text.title}</Text>
-          <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -94,5 +87,17 @@ export default class Permissions extends Component {
         </View>
       )
     });
+  }
+
+  render() {
+    const { text } = this.props;
+    return (
+      <View>
+        <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
+        <Text style={styles.iosTitle}>{text.title}</Text>
+        <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
+        {this.platformRendering(text)}
+      </View>
+    );
   }
 }
