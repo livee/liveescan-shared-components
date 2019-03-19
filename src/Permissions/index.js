@@ -38,7 +38,7 @@ export default class PermissionsComponent extends Component {
     super();
   }
 
-  platformRendering(text) {
+  platformRendering(text, primaryColor) {
     return Platform.select({
       ios: (
         <View>
@@ -64,7 +64,7 @@ export default class PermissionsComponent extends Component {
           >
             <TouchableOpacity
               style={{
-                backgroundColor: '#48B9B0',
+                backgroundColor: primaryColor,
                 width: '50%',
                 height: 60
               }}
@@ -90,13 +90,13 @@ export default class PermissionsComponent extends Component {
   }
 
   render() {
-    const { text } = this.props;
+    const { text, primaryColor } = this.props;
     return (
       <View>
-        <HeaderComponent title={text.headerTitle} backgroundColor="#48B9B0" />
+        <HeaderComponent title={text.headerTitle} backgroundColor={primaryColor} />
         <Text style={styles.iosTitle}>{text.title}</Text>
         <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
-        {this.platformRendering(text)}
+        {this.platformRendering(text, primaryColor)}
       </View>
     );
   }
