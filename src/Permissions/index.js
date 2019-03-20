@@ -4,32 +4,33 @@ import { StyleSheet, Text, View, Platform, Image, TouchableOpacity } from 'react
 
 const styles = StyleSheet.create({
   icons: {
-    width: 50,
-    height: 50
+    width: 40,
+    height: 40
   },
 
   iosTitle: {
-    fontSize: 30,
+    fontSize: 20,
     textAlign: 'center',
-    margin: 20,
+    marginVertical: '5%',
     fontWeight: 'bold'
   },
   iosSubtitle: {
     textAlign: 'center',
-    fontSize: 20,
-    margin: 20,
+    fontSize: 16,
+    marginBottom: '5%',
+    marginLeft: '5%',
+    marginRight: '5%',
     color: '#919191'
   },
-  steps: {
-    marginLeft: '25%',
-    textAlign: 'center',
-    marginTop: '10%'
-  },
   step: {
-    fontSize: 30,
-    marginBottom: 20,
-    marginLeft: 20,
-    marginTop: 10
+    fontSize: 14,
+    marginLeft: '5%',
+    marginTop: '1%'
+  },
+  steps: {
+    flexDirection: 'row',
+    marginHorizontal: '33%',
+    marginBottom: '7%'
   }
 });
 
@@ -38,52 +39,26 @@ export default class PermissionsComponent extends Component {
     super();
   }
 
-  platformRendering(text, primaryColor) {
+  platformRendering(text) {
     return Platform.select({
       ios: (
         <View>
-          <View style={styles.steps}>
-            {text.steps.map(step => (
-              <View style={{ flexDirection: 'row', marginVertical: 20 }} key={step.label}>
-                <Image source={step.img} style={{ width: 50, height: 50 }} />
-                <Text style={styles.step}>{step.label}</Text>
-              </View>
-            ))}
-          </View>
+          {text.iosSteps.map(step => (
+            <View style={styles.steps} key={step.label}>
+              <Image source={step.img} style={styles.icons} />
+              <Text style={styles.step}>{step.label}</Text>
+            </View>
+          ))}
         </View>
       ),
       android: (
         <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: 40
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                backgroundColor: primaryColor,
-                width: '50%',
-                height: 60
-              }}
-              onPress={() => {
-                this.componentWillMount();
-              }}
-            >
-              <Text
-                style={{
-                  padding: 6,
-                  fontSize: 30,
-                  color: 'white',
-                  textAlign: 'center'
-                }}
-              >
-                {text.authorize}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          {text.androidSteps.map(step => (
+            <View style={styles.steps} key={step.label}>
+              <Image source={step.img} style={styles.icons} />
+              <Text style={styles.step}>{step.label}</Text>
+            </View>
+          ))}
         </View>
       )
     });
@@ -96,7 +71,7 @@ export default class PermissionsComponent extends Component {
         <HeaderComponent title={text.headerTitle} backgroundColor={primaryColor} />
         <Text style={styles.iosTitle}>{text.title}</Text>
         <Text style={styles.iosSubtitle}>{text.subTitle}</Text>
-        {this.platformRendering(text, primaryColor)}
+        {this.platformRendering(text)}
       </View>
     );
   }
