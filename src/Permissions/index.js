@@ -5,7 +5,8 @@ import { StyleSheet, Text, View, Platform, Image, TouchableOpacity } from 'react
 const styles = StyleSheet.create({
   icons: {
     width: 40,
-    height: 40
+    height: 40,
+    marginRight: '5%'
   },
 
   iosTitle: {
@@ -24,13 +25,12 @@ const styles = StyleSheet.create({
   },
   step: {
     fontSize: 14,
-    marginLeft: '5%',
-    marginTop: '1%'
+    flexDirection: 'row',
+    marginBottom: '5%',
+    alignItems: 'center'
   },
   steps: {
-    flexDirection: 'row',
-    marginHorizontal: '33%',
-    marginBottom: '7%'
+    flexDirection: 'column'
   }
 });
 
@@ -42,23 +42,27 @@ export default class PermissionsComponent extends Component {
   platformRendering(text) {
     return Platform.select({
       ios: (
-        <View>
-          {text.iosSteps.map(step => (
-            <View style={styles.steps} key={step.label}>
-              <Image source={step.img} style={styles.icons} />
-              <Text style={styles.step}>{step.label}</Text>
-            </View>
-          ))}
+        <View style={{ alignItems: 'center' }}>
+          <View style={styles.steps}>
+            {text.iosSteps.map(step => (
+              <View style={styles.step} key={step.label}>
+                <Image source={step.img} style={styles.icons} />
+                <Text>{step.label}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       ),
       android: (
-        <View>
-          {text.androidSteps.map(step => (
-            <View style={styles.steps} key={step.label}>
-              <Image source={step.img} style={styles.icons} />
-              <Text style={styles.step}>{step.label}</Text>
-            </View>
-          ))}
+        <View style={{ alignItems: 'center' }}>
+          <View style={styles.steps}>
+            {text.androidSteps.map(step => (
+              <View style={styles.step} key={step.label}>
+                <Image source={step.img} style={styles.icons} />
+                <Text>{step.label}</Text>
+              </View>
+            ))}
+          </View>
         </View>
       )
     });
