@@ -17,35 +17,17 @@ export default class SearchBar extends Component {
   clearBarAnimation = new Value(100);
   clearBarFrames = Animate.createAnimation(100, this.clearBarAnimation, 100);
 
-  opacity = interpolate(this.searchBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [1, 0]
-  });
+  opacity = interpolate(this.searchBarFrames, [0, 100], [1, 0]);
 
-  searchWidth = interpolate(this.searchBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [70, 90]
-  });
+  searchWidth = interpolate(this.searchBarFrames, [0, 100],  [70, 90]);
 
-  clearOpacity = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [1, 0]
-  });
+  clearOpacity = interpolate(this.clearBarFrames, [0, 100], [1, 0]);
 
-  clearWidth = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [20, 15]
-  });
+  clearWidth = interpolate(this.clearBarFrames, [0, 100], [20, 15]);
 
-  clearScale = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [1, 0]
-  });
+  clearScale = interpolate(this.clearBarFrames, [0, 100], [1, 0]);
 
-  inputWidth = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [80, 100]
-  });
+  inputWidth = interpolate(this.clearBarFrames, [0, 100], [80, 100]);
 
   constructor(props) {
     super(props);
