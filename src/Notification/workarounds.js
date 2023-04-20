@@ -5,6 +5,6 @@ import { Platform } from 'react-native';
 export function zIndexWorkaround(val) {
   return Platform.select({
     ios: { zIndex: val },
-    android: { elevation: val }
+    android: { zIndex: val }
   });
 }

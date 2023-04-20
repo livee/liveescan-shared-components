@@ -31,15 +31,16 @@ class Notification extends Component {
   componentDidMount() {
     Animated.timing(this.state.fadeAnim, {
       toValue: 1,
-      duration: 500
+      duration: 500,
+      useNativeDriver: true
     }).start();
 
     setTimeout(() => {
-      this.destroyNotifcation();
+      this.destroyNotification();
     }, this.props.duration || 4000);
   }
 
-  destroyNotifcation() {
+  destroyNotification() {
     this.props.onDismissClick();
   }
 
@@ -55,7 +56,7 @@ class Notification extends Component {
         <TouchableOpacity
           style={[styles.container, styles[position]]}
           pointerEvents="none"
-          onPress={() => this.destroyNotifcation()}
+          onPress={() => this.destroyNotification()}
         >
           <View style={[styles.content]}>
             <View style={[styles.leftBar, { backgroundColor: colors[type] }]} />
@@ -125,10 +126,10 @@ const styles = StyleSheet.create({
   },
   // Custom styles:
   top: {
-    top: height * 0.15
+    bottom: height * 0.80
   },
   bottom: {
-    top: height * 0.8
+    bottom: height * 0.1
   }
 });
 
