@@ -61,9 +61,10 @@ class Notification extends Component {
           <View style={[styles.content]}>
             <View style={[styles.leftBar, { backgroundColor: colors[type] }]} />
             <Icon code={icons[type]} iconStyle={[styles.icon, { color: colors[type] }]} />
-            <Text style={[styles.text, { color: colors[type] }]}>
-              {typeof text === 'string' ? translate(text) : text}
-            </Text>
+            {typeof text === 'string'
+              ? <Text style={[styles.text, { color: colors[type] }]}>{translate(text)}</Text>
+              : text
+            }
           </View>
           {position === 'bottom' && <Triangle style={styles.triangleDown} />}
         </TouchableOpacity>
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 55,
+    minHeight: 55,
     backgroundColor: 'white',
     elevation: 5
   },
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   },
   // Custom styles:
   top: {
-    bottom: height * 0.80
+    bottom: height * 0.65
   },
   bottom: {
     bottom: height * 0.1
