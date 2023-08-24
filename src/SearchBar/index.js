@@ -1,51 +1,17 @@
 import React, { Component } from 'react';
 import { View, TouchableHighlight, TextInput, StyleSheet, Text, Keyboard } from 'react-native';
-import Animated from 'react-native-reanimated';
 import Icon from '../Icon';
-import Utils from '../utils';
-const { concat, Value, interpolate } = Animated;
-const { Animate } = Utils;
+
 export default class SearchBar extends Component {
   state = {
     showCancelButton: false
   };
-  /* 100 = hide, 0 = show */
-  searchBarAnimation = new Value(100);
-  searchBarFrames = Animate.createAnimation(100, this.searchBarAnimation);
-
-  /* 100 = hide, 0 = show */
-  clearBarAnimation = new Value(100);
-  clearBarFrames = Animate.createAnimation(100, this.clearBarAnimation, 100);
-
-  opacity = interpolate(this.searchBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [1, 0]
-  });
-
-  searchWidth = interpolate(this.searchBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [70, 90]
-  });
-
-  clearOpacity = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [1, 0]
-  });
-
-  clearWidth = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [20, 15]
-  });
-
-  clearScale = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [1, 0]
-  });
-
-  inputWidth = interpolate(this.clearBarFrames, {
-    inputRange: [0, 100],
-    outputRange: [80, 100]
-  });
+  opacity = 0;
+  searchWidth = 90;
+  clearOpacity = 1;
+  clearWidth = 20;
+  clearScale = 1;
+  inputWidth = 80;
 
   constructor(props) {
     super(props);
@@ -60,28 +26,42 @@ export default class SearchBar extends Component {
   onCancelSearch() {
     this.onChangeText('');
     this.hideCancelButton();
+
     Keyboard.dismiss();
   }
 
   hideCancelButton() {
-    this.searchBarAnimation.setValue(100);
+    this.searchWidth = 90;
+    this.opacity = 0;
+
     this.setState({ showCancelButton: false });
   }
+
   onSearchTouch() {
-    this.searchBarAnimation.setValue(0);
+    this.searchWidth = 70;
+    this.opacity = 1;
+
     this.setState({ showCancelButton: true });
     this.showHideClearButton(this.props.searchPattern);
   }
 
   showHideClearButton(text) {
     if (text === '') {
-      this.clearBarAnimation.setValue(100);
+      this.clearOpacity = 0;
+      this.clearWidth = 15;
+      this.clearScale = 0;
+      this.inputWidth = 100;
     } else {
-      this.clearBarAnimation.setValue(0);
+      this.clearOpacity = 1;
+      this.clearWidth = 20;
+      this.clearScale = 1;
+      this.inputWidth = 80;
     }
   }
+
   onChangeText(text) {
     this.props.onChangeText(text);
+
     if (text !== '' && this.state.showCancelButton === false) {
       this.setState({ showCancelButton: true });
     }
@@ -89,10 +69,10 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    const { t } = this.props;
     const progressStyle = {
-      width: concat(this.searchWidth, '%')
+      width: `${this.searchWidth}%`
     };
+
     const cancelStyle = {
       opacity: this.opacity,
       visibility: this.state.showCancelButton ? 'visible' : 'collapse'
@@ -104,19 +84,19 @@ export default class SearchBar extends Component {
       opacity: this.clearOpacity,
       visibility: showClearButton ? 'visible' : 'collapse',
       transform: [{ scale: this.clearScale }],
-      width: concat(this.clearWidth, '%')
+      width: `${this.clearWidth}%`
     };
 
     const inputCalculatedStyle = {
       ...styles.searchInput,
-      width: concat(this.inputWidth, '%'),
+      width: `${this.inputWidth}%`,
       borderRightWidth: this.clearOpacity
     };
 
     return (
       <View style={styles.searchWrapper}>
-        <Animated.View style={[styles.inputBorder, progressStyle]}>
-          <Animated.View style={inputCalculatedStyle}>
+        <View style={[styles.inputBorder, progressStyle]}>
+          <View style={inputCalculatedStyle}>
             <TextInput
               style={{ height: 30 }}
               value={this.props.searchPattern}
@@ -124,8 +104,8 @@ export default class SearchBar extends Component {
               onChangeText={text => this.onChangeText(text)}
               placeholder={this.props.searchText}
             />
-          </Animated.View>
-          <Animated.View style={[styles.clearSearch, clearWidth]}>
+          </View>
+          <View style={[styles.clearSearch, clearWidth]}>
             <TouchableHighlight
               underlayColor={'rgba(0,0,0,0)'}
               style={styles.clearSearchHighlight}
@@ -133,9 +113,9 @@ export default class SearchBar extends Component {
             >
               <Icon code={'\u{e9b9}'} iconStyle={{ color: '#212121', fontSize: 20 }} />
             </TouchableHighlight>
-          </Animated.View>
-        </Animated.View>
-        <Animated.View style={[{}, cancelStyle]}>
+          </View>
+        </View>
+        <View style={[{}, cancelStyle]}>
           <TouchableHighlight
             underlayColor={'rgba(0,0,0,0)'}
             style={styles.cancelSearch}
@@ -143,7 +123,7 @@ export default class SearchBar extends Component {
           >
             <Text>{this.props.cancelText}</Text>
           </TouchableHighlight>
-        </Animated.View>
+        </View>
       </View>
     );
   }
@@ -155,10 +135,12 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 5
   },
   inputBorder: {
-    marginTop: 20,
+    marginTop: 0,
     justifyContent: 'flex-start',
     marginLeft: '2.5%',
     alignItems: 'center',
@@ -193,10 +175,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1
   },
-
   cancelSearch: {
     marginLeft: '5%',
-    marginTop: 20,
+    // marginTop: 20,
     opacity: 1,
     height: 50,
     justifyContent: 'center',

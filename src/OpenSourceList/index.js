@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 
 export default class OpenSourceList extends Component {
   render() {
@@ -9,8 +9,16 @@ export default class OpenSourceList extends Component {
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
           <View>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.pre}>{item.text}</Text>
+            <Text
+              style={{
+                fontSize: 20,
+                color: this.props.titleColor || '#000',
+                marginBottom: 10,
+              }}
+            >
+              {item.name}
+            </Text>
+            <Text style={{ marginBottom: 25 }}>{item.text}</Text>
           </View>
         )}
       />
@@ -18,16 +26,3 @@ export default class OpenSourceList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  name: {
-    fontSize: 15,
-    fontWeight: 'bold'
-  },
-  pre: {
-    margin: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: 'black'
-  }
-});
