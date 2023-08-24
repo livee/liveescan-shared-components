@@ -1,15 +1,13 @@
-import Animated, { Easing } from 'react-native-reanimated';
+import Animated, { EasingNode } from 'react-native-reanimated';
 
 const {
   set,
   cond,
-  concat,
   startClock,
   stopClock,
   clockRunning,
   block,
   timing,
-  interpolate,
   Value,
   Clock
 } = Animated;
@@ -34,7 +32,7 @@ export function createAnimation(sourceValue, dest, duration = 250) {
   const config = {
     duration,
     toValue: dest,
-    easing: Easing.inOut(Easing.ease)
+    easing: EasingNode.inOut(EasingNode.ease)
   };
   return block([
     cond(clockRunning(clock), 0, [
